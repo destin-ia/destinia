@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+
+    {{!-- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script> --}}
+    {{!-- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' /> --}}
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    
+</head>
+<body>
+    <div class="" id="nav-bar-header">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">Destin.ia</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {{#if isUserLoggedIn }}
+                            <li class="nav-item">Hello, {{ currentUserInfo.name }}.</li>
+                            <li class="nav-item"><a class="nav-link" href="/auth/logout">Profile</a></li>
+
+                            {{!-- <li class="nav-item active"><a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li> --}}
+                            <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
+
+                        {{else}}
+                            <li class="nav-item"><a class="nav-link" href="/auth/signup">Sign Up</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+  {{{body}}}
+    {{!-- <nav>
+  <ul>
+    {{#if isUserLoggedIn }}
+     <li> <a href="/launderers"> Find a Launderer </a> </li>
+      <li> <a href="/dashboard"> See Dashboard </a> </li>
+      <li> <a href="/logout"> Log Out </a> </li>
+
+      
+    {{else}}
+      <li> <a href="/auth/signup"> Sign Up </a> </li>
+      <li> <a href="/auth/login"> Log In </a> </li>
+    {{/if}}
+  </ul>
+</nav> --}}
+
+
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/script.js"></script>
+</body>
+</html>
+

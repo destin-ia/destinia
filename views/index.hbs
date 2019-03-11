@@ -1,0 +1,44 @@
+<p> Welcome to {{ title }}. </p>
+
+{{#if isUserLoggedIn }}
+  <p> Hello, {{ currentUserInfo.name }}. </p>
+{{/if}}
+
+<nav>
+  <ul>
+    {{#if isUserLoggedIn }}
+     <li> <a href="/launderers"> Find a Launderer </a> </li>
+      <li> <a href="/dashboard"> See Dashboard </a> </li>
+      <li> <a href="/logout"> Log Out </a> </li>
+
+      <div id="map"></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+        center: [-74.50, 40], // starting position [lng, lat]
+        zoom: 9 // starting zoom
+    });
+
+</script>
+    {{else}}
+      <li> <a href="/auth/signup"> Sign Up </a> </li>
+      <li> <a href="/auth/login"> Log In </a> </li>
+    {{/if}}
+  </ul>
+</nav>
+
+
+
+<div class="row">
+<div class="col-8">
+<p>columna 1</p>
+</div>
+<div class="col-4">
+<p>columna 1</p>
+</div>
+
+</div>
+

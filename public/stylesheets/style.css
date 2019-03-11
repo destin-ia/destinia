@@ -1,0 +1,20 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF; }
+
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 600; }
+
+header .container {
+  font-size: 0.9rem; }
+
+#map {
+  position: absolute;
+  top: 30%;
+  bottom: 30%;
+  width: 60%; }
+
+/*# sourceMappingURL=style.css.map */
