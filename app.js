@@ -71,6 +71,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.locals.clientid = process.env.CLIENTID
 
 const index = require('./routes/index');
 app.use('/', index);
