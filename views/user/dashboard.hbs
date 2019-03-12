@@ -1,18 +1,22 @@
-<p> Welcome to {{ title }}. </p>
-
 {{#if isUserLoggedIn }}
 
-    <div class="row">
-    <div class="col-9">
+    <div class="row top-margin">
+        <div class="col-9">
   
-    <label for="">¿Donde quieres viajar? <input id="geocode" type="text" name="geocode"></label>
-    <button id="buttonWhere">BUSCAR</button>
+            <label for="">Destino <input id="geocode" type="text" name="geocode"></label>
+            <label for="">Días <input id="days" type="text" name="days"></label>
+            <label for="">Radio <input id="radio" type="text" name="radio"></label>
+            <button id="buttonWhere">BUSCAR</button>
 
-    <div id="map"></div>
+            <div id="map"></div>
+        </div>
+        <div class="col-3 venues my-shadow">
+            <p>Venues</p>
+        </div>
+
+</div>
 
 <script>
-
-    
     mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
     var map = new mapboxgl.Map({
         container: 'map', // container id
@@ -26,6 +30,8 @@
 document.getElementById('buttonWhere').onclick = () => {
 
     let geocode = document.getElementById("geocode").value
+    let days = document.getElementById("days").value
+    let radio = document.getElementById("radio").value
     console.log(geocode)
 
     axios.post("http://localhost:3000/user/dashboard/geocode", {geocode})
@@ -63,12 +69,5 @@ document.getElementById('buttonWhere').onclick = () => {
 }
 
 </script>
-</div>
-<div class="col-3">
-<p>columna 2</p>
-</div>
-
-</div>
-
 
 {{/if}}
