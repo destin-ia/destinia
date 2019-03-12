@@ -1,17 +1,11 @@
-<p> Welcome to {{ title }}. </p>
-
-{{#if isUserLoggedIn }}
-  <p> Hello, {{ currentUserInfo.name }}. </p>
-{{/if}}
-
 <nav>
-  <ul>
-    {{#if isUserLoggedIn }}
-     <li> <a href="/launderers"> Find a Launderer </a> </li>
-      <li> <a href="/dashboard"> See Dashboard </a> </li>
-      <li> <a href="/logout"> Log Out </a> </li>
+    <ul>
+        {{#if isUserLoggedIn }}
+            <li> <a href="/launderers"> Find a Launderer </a> </li>
+            <li> <a href="/dashboard"> See Dashboard </a> </li>
+            <li> <a href="/logout"> Log Out </a> </li>
 
-      <div id="map"></div>
+            <div id="map"></div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
@@ -23,7 +17,8 @@
     });
 
 </script>
-    {{else}}
+
+        {{else}}
     {{!-- <video autoplay loop controls="false" tabindex="0" id="video_background">
       <source src="/images/peli.mp4" type="video/mp4">
     </video> --}}
@@ -31,19 +26,7 @@
       {{!-- <video autoplay="autoplay" loop="loop" id="video_background" preload="auto" volume="50"/>
   <source src="/images/peli.mp4" type="video/mp4" /> --}}
 {{!-- </video/> --}}
-    {{/if}}
-  </ul>
+        {{/if}}
+    </ul>
 </nav>
-
-
-
-<div class="row">
-<div class="col-8">
-<p>columna 1</p>
-</div>
-<div class="col-4">
-<p>columna 1</p>
-</div>
-
-</div>
 
