@@ -1,73 +1,73 @@
 {{#if isUserLoggedIn }}
 
-    <div class="row top-margin">
-        <div class="col-9">
-  
-            <label for="">Destino <input id="geocode" type="text" name="geocode"></label>
-            <label for="">Días <input id="days" type="text" name="days"></label>
-            <label for="">Radio <input id="radio" type="text" name="radio"></label>
-            <button id="buttonWhere">BUSCAR</button>
+    <div class="row mapping">
+        <div class="col-9"><div id="map" class="my-shadow my-border-radius"></div></div>
+        <div class="col-3 venues my-shadow my-border-radius">
+            <p>Selecciona destino con la lupa</p>
+            <label for="days">Días <input id="days" type="text" name="days"></label>
+            <label for="radio">Radio (mín. 10km ) <input id="radio" type="range" name="radio" oninput="myFunction()" min="10000" max="100000" value="10000"> (máx. 100km)</label>
 
-            <div id="map"></div>
-        </div>
-        <div class="col-3 venues my-shadow">
             <p>Venues</p>
-        </div>
 
+        </div>
 </div>
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
-        center: [-3.702897, 40.432585], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+    let lat = 40.432585, lng = -3.702897
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
+    var layer = L.mapbox.tileLayer('mapbox.streets');
+    layer.on('ready', function() {
+        // the layer has been fully loaded now, and you can
+        // call .getTileJSON and investigate its properties
+    });
+    layer.on('error', function(err) {
+        // Handle error
     });
 
-// GEOCODE para que devuelva una posicion lat lon al enviar un texto
+    var map = L.mapbox.map('map')
+        .setView([lat, lng], 8)
+        .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
+        .on('dblclick', function(e) { map.setView(e.latlng, map.getZoom() + 1) }); // Zoom exactly to each double-clicked point
 
-document.getElementById('buttonWhere').onclick = () => {
+    // Initialize the geocoder control and add it to the map.
+    var geocoderControl = L.mapbox.geocoderControl('mapbox.places', { autocomplete: true });
+    geocoderControl.addTo(map);
 
-    let geocode = document.getElementById("geocode").value
-    let days = document.getElementById("days").value
-    let radio = document.getElementById("radio").value
-    console.log(geocode)
+    marker = L.marker([lat, lng]).addTo(map)
+        .bindPopup('Madrid')
 
-    axios.post("http://localhost:3000/user/dashboard/geocode", {geocode})
-    .then(response => {
+    var filterCircle, RADIUS, marker, place
 
-         map.addLayer({
-        "id": geocode,
-        "type": "symbol",
-        "source": {
-        "type": "geojson",
-        "data": {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [response.data.posGeocodeLat, response.data.posGeocodeLon]
-                    },
-            "properties": {
-                "title": geocode,
-                "icon": "monument"
-                }
-            },]
-        }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-            }
-        });
-     })
-}
+    myFunction =()=> {
+        RADIUS = Number(document.getElementById("radio").value)
+        if (filterCircle) filterCircle.removeFrom(map);
+        filterCircle = L.circle(L.latLng(lat, lng), RADIUS, {
+            opacity: 1,
+            weight: 1,
+            fillOpacity: 0.4
+        }).addTo(map);
+    }
+    // Listen for the `found` result and display the first result
+    // in the output container. For all available events, see
+    // https://www.mapbox.com/mapbox.js/api/v3.2.0/l-mapbox-geocodercontrol/#section-geocodercontrol-on
+    geocoderControl.on('select', function(res) {
+        //output.innerHTML = JSON.stringify(res.results.features[0]);
+        if (marker) map.removeLayer(marker)
+        lat = res.feature.center[1]
+        lng = res.feature.center[0]
+        place = res.feature.text
+        marker = L.marker([res.feature.center[1], res.feature.center[0]])
+        marker.addTo(map)
+            .bindPopup(res.feature.text)
+        myFunction()
+        axios.post("http://localhost:3000/user/dashboard", { place })
+        .then(response => console.log())
+    });
 
 </script>
+
+{{else}}
+No tienes permisos
 
 {{/if}}

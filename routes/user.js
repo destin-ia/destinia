@@ -9,29 +9,68 @@ const axios = require("axios");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+// API FourSquare
+
+
+
+
+// RENDER Vistas --------------------------------
+
 Router.get("/dashboard", (req, res, next) => res.render("user/dashboard", { errorMessage: `` }));
+// Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
+Router.get("/places", (req, res, next) => res.render("user/places", { errorMessage: `` }));
 
-Router.post("/dashboard/geocode", (req, res, next) => {
-    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${req.body.geocode}.json?access_token=pk.eyJ1IjoibWFrZXJkZXYiLCJhIjoiY2p0M2E3czQ1MW8zNzQ0cGF3aWhqbmM0NSJ9.LsxCUIsThXEOpzlW233seg`)
-        .then(response => {
-            const postGeo = {
-                posGeocodeLat: response.data.features[0].center[0],
-                posGeocodeLon: response.data.features[0].center[1]
-            };
-            res.json(postGeo);
-        })
-        .catch(err => next(err));
-    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20180323&limit=50&near=${req.body.geocode}`)
-        .then(response => {
-            console.log(`Response from the API is: `, response.data.response.venues);
-        })
-        .catch(err => next(err));
-});
+Router.get("/profile/:id", (req, res, next) => {
+    console.log(req.params.id)
+    User.findById(req.params.id)
+        .then(user => {
 
-Router.post("/dashboard/routeinit", (req, res, next) => {
-    const { lat, lon } = req.body;
-    console.log(req.body);
-    // res.json()
-});
+            res.render("user/profile", { user })
+        })
+        .catch(err => {
+            console.log('Error while finding a celebrity to edit', err)
+            next()
+        })
+})
+
+// CRUD Usuarios ---------------------------------
+
+Router.get("/delete/:id", (req, res, next) => {
+
+    User.findByIdAndRemove(req.params.id)
+        .then(user => {
+            console.log("He borrado el usuario " + user)
+            req.session.destroy()
+            res.redirect("/")
+        })
+        .catch(err => {
+            console.log('Error deleting an user', err)
+            next()
+        })
+})
+
+
+Router.post("/profile/:id", (req, res, next) => {
+    const { name, username, password, photo } = req.body
+    console.log(req.body)
+    User.update({ _id: req.params.id }, { $set: { name, username, password, photo } })
+        .then(user => res.redirect(`${req.params.id}`))
+        .catch(err => {
+            console.log('Error while updating an user', err)
+            next()
+        })
+})
+
+Router.post("/profile/bio/:id", (req, res, next) => {
+    const { bio } = req.body
+    console.log(req.body)
+    User.update({ _id: req.params.id }, { $set: { bio } })
+        .then(user => res.redirect(`../${req.params.id}`))
+        .catch(err => {
+            console.log('Error while updating an user', err)
+            next()
+        })
+})
+
 
 module.exports = Router;
