@@ -51,6 +51,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 // default value for title local
 app.locals.title = 'Destin.ia';
+app.locals.heroku = JSON.stringify({ url: process.env.HEROKUURL });
 
 // Enable authentication using session + passport
 app.use(session({

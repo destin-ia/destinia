@@ -51,9 +51,11 @@
         .on('markgeocode', function(e) {
             lat = e.geocode.center.lat
             lng = e.geocode.center.lng
-            place = e.geocode.properties.address.county
+            place = e.geocode.properties.address.city
+            console.log(e.geocode.properties.address)
             myFunction()
-            axios.post("http://localhost:3000/user/dashboard", { place, RADIUS })
+            //axios.post("http://localhost:3000/user/dashboard", { place, RADIUS })
+            axios.post(window.heroku, { place, RADIUS })
                 .then(response => {
                     response.data.forEach(e => {
                         console.log(e)
@@ -79,6 +81,10 @@
 </script>
 
 {{else}}
-No tienes permisos
+
+<script>
+
+    
+</script>
 
 {{/if}}

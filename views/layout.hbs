@@ -56,7 +56,7 @@
                 <div class="collapse navbar-collapse right" id="navbarNav">
                     <ul class="navbar-nav">
                         {{#if isUserLoggedIn }}
-                            <li class="nav-item nav-link">Hello {{ currentUserInfo.name }}</li>
+                            <li class="nav-item nav-link">Hello {{ currentUserInfo.username }}</li>
                             <li class="nav-item"><a class="nav-link" href="/user/dashboard">Dashboard</a></li>
                             <li class="nav-item"><a class="nav-link" href="/user/profile/{{currentUserInfo._id}}">Profile</a></li>
                             <li class="nav-item"><a class="nav-link" href="/user/places">Places</a></li>
@@ -75,6 +75,10 @@
             </nav>
         </header>
     </div>
+    <script>
+        window.heroku = {{{heroku}}}
+        console.log(window.heroku);
+    </script>
 
   {{{body}}}
 </body>

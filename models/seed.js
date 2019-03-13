@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
-
 require("dotenv").config();
+
 const mongoose = require("mongoose");
 const Venue = require("../models/Venue");
 
