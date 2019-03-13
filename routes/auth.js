@@ -28,6 +28,7 @@ router.post("/login", (req, res, next) => {
             res.render('auth/login', { errorMessage: 'Invalid password.' });
             return;
         }
+        console.log("entra")
         req.session.currentUser = theUser;
         res.redirect('/user/dashboard');
     });

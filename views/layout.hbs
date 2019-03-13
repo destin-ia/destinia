@@ -30,6 +30,20 @@
     
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+
+    <!--     BOOTSTRAP     -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
 </head>
 <body>
     <div class="" id="nav-bar-header">
@@ -42,15 +56,19 @@
                 <div class="collapse navbar-collapse right" id="navbarNav">
                     <ul class="navbar-nav">
                         {{#if isUserLoggedIn }}
-                            <li class="nav-item nav-link">Hello, {{ currentUserInfo.username }}.</li>
-                            <li class="nav-item"><a class="nav-link" href="/auth/logout">Profile</a></li>
+                            <li class="nav-item nav-link">Hello {{ currentUserInfo.name }}</li>
+                            <li class="nav-item"><a class="nav-link" href="/user/dashboard">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/user/profile/{{currentUserInfo._id}}">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/user/places">Places</a></li>
 
                             {{!-- <li class="nav-item active"><a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li> --}}
                             <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
 
                         {{else}}
                             <li class="nav-item"><a class="nav-link" href="/auth/signup">Sign Up</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                            {{!-- <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li> --}}
+                            <li class="nav-item"><a class="nav-link" href="/auth/login" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                            
                         {{/if}}
                     </ul>
                 </div>
