@@ -1,73 +1,81 @@
 {{#if isUserLoggedIn }}
 
-    <div class="row top-margin">
+    <div class="row mapping">
         <div class="col-9">
-  
-            <label for="">Destino <input id="geocode" type="text" name="geocode"></label>
-            <label for="">Días <input id="days" type="text" name="days"></label>
-            <label for="">Radio <input id="radio" type="text" name="radio"></label>
-            <button id="buttonWhere">BUSCAR</button>
-
-            <div id="map"></div>
+            {{!-- <div id="map" class="my-shadow my-border-radius"></div> --}}
+        <div id="mapid" class="my-shadow my-border-radius"></div>
         </div>
-        <div class="col-3 venues my-shadow">
+        <div class="col-3 venues my-shadow my-border-radius">
+            <p>Selecciona destino con la lupa</p>
+            <label for="days">Días <input id="days" type="text" name="days"></label>
+            <hr>
+            <label for="radio">Radio: Mín.10 - Máx.100 [km] - <span id="actualMark">50</span>km</label>
+            <input id="radio" list="tickmarks" type="range" name="radio" oninput="myFunction()" min="10000" max="100000">
+            <datalist id="tickmarks">
+                <option value="10000">
+                <option value="20000">
+                <option value="30000">
+                <option value="40000">
+                <option value="50000">
+                <option value="60000">
+                <option value="70000">
+                <option value="80000">
+                <option value="90000">
+                <option value="100000">
+            </datalist>
             <p>Venues</p>
-        </div>
 
-</div>
+        </div>
+    </div>
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
-        center: [-3.702897, 40.432585], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+    let lat = 40.432585, lng = -3.702897
+    let circle, RADIUS, marker, place, geocoder, map
+    map = L.map('mapid').setView([lat, lng], 11);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA'
+    }).addTo(map);
+
+    var myIcon = L.icon({
+        iconUrl: '/images/marker_2-512.png',
+        iconSize: [51, 51],
+        iconAnchor: [25, 20],
     });
+    //L.marker([lat, lng], {icon: myIcon}).addTo(map)
+    //    .bindPopup('Madrid')
 
-// GEOCODE para que devuelva una posicion lat lon al enviar un texto
+    geocoder = L.Control.geocoder({ defaultMarkGeocode: true })
+        .on('markgeocode', function(e) {
+            lat = e.geocode.center.lat
+            lng = e.geocode.center.lng
+            place = e.geocode.properties.address.county
+            myFunction()
+            axios.post("http://localhost:3000/user/dashboard", { place, RADIUS })
+                .then(response => {
+                    response.data.forEach(e => {
+                        console.log(e)
+                        L.marker([e.location.lat, e.location.lng], {icon: myIcon}).addTo(map)
+                            .bindPopup(e.name)
+                    })
+                    console.log(response)})
+        })
+        .addTo(map);
 
-document.getElementById('buttonWhere').onclick = () => {
-
-    let geocode = document.getElementById("geocode").value
-    let days = document.getElementById("days").value
-    let radio = document.getElementById("radio").value
-    console.log(geocode)
-
-    axios.post("http://localhost:3000/user/dashboard/geocode", {geocode})
-    .then(response => {
-
-         map.addLayer({
-        "id": geocode,
-        "type": "symbol",
-        "source": {
-        "type": "geojson",
-        "data": {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [response.data.posGeocodeLat, response.data.posGeocodeLon]
-                    },
-            "properties": {
-                "title": geocode,
-                "icon": "monument"
-                }
-            },]
-        }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-            }
-        });
-     })
-}
-
+    myFunction =()=> {
+        RADIUS = Number(document.getElementById("radio").value)
+        if (circle) circle.removeFrom(map);
+        circle = L.circle(L.latLng(lat, lng), RADIUS, {
+            color: '#343a40',
+            fillColor: '#6c757d',
+            opacity: 1,
+            weight: 1,
+            fillOpacity: 0.6,
+        }).addTo(map);
+        document.getElementById('actualMark').innerHTML = parseInt(RADIUS/1000);
+    }
 </script>
 
 {{/if}}

@@ -5,18 +5,7 @@
             <li> <a href="/dashboard"> See Dashboard </a> </li>
             <li> <a href="/logout"> Log Out </a> </li>
 
-            <div id="map"></div>
 
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
-        center: [-74.50, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
-
-</script>
 
         {{else}}
     {{!-- <video autoplay loop controls="false" tabindex="0" id="video_background">
