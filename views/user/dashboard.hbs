@@ -2,12 +2,12 @@
 
     <div class="row mapping">
         <div class="col-8">
-            {{!-- <div id="map" class="my-shadow my-border-radius"></div> --}}
-        <div id="mapid" class="my-shadow my-border-radius"></div>
+            <div id="mapid" class="my-shadow my-border-radius">
+
+            </div>
         </div>
         <div class="col-4 venues my-shadow my-border-radius">
             <p>Selecciona destino con la lupa</p>
-            {{!-- <label for="days">Días <input id="days" type="text" name="days"></label> --}}
             <hr>
             <label for="radio">Radio: Mín.10 - Máx.100 [km] - <span id="actualMark">50</span>km</label>
             <input id="radio" list="tickmarks" type="range" name="radio" oninput="myFunction()" min="10000" max="100000">
@@ -23,7 +23,6 @@
                 <option value="90000">
                 <option value="100000">
             </datalist>
-            {{!-- <p>Venues</p> --}}
             <form class="was-validated">
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCV1" value="4deefb944765f83613cdba6e">
@@ -62,9 +61,9 @@
                             <div class="description">
                                 <h5>Bienvenido a DestinIA</h5>
                                 <p> Es esta sección podrá ver las ubicaciones y guardas los lugares que más te interesen</p>
-                             
+
                             </div>
-                        </div>                    
+                        </div>
                 </div>
             </div>
             <br>
