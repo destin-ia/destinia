@@ -12,6 +12,7 @@ body { margin:0; padding:0; }
   <div class="col-6">
     <h1>{{venue.name}}</h1>
     <br>
+    <h5>Dirección: {{venue.location.address}}</h5>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
   </div>
@@ -45,9 +46,14 @@ body { margin:0; padding:0; }
 </div>
 </div>
 
-<div class="row"></div>
+<div class="row p3" style="background-color: silver;"></div>
   <div class="col-4">
-    <h2>Info</h2>
+    <h2>Información</h2>
+    <ul>
+      {{#each venue.location.formattedAddress}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ducimus blanditiis et dolorum totam perspiciatis praesentium sed, temporibus aliquid harum error voluptatum voluptate quisquam ipsam debitis molestiae voluptas, libero aspernatur?</p>
   </div>
   <div class="col-8">
@@ -66,31 +72,15 @@ body { margin:0; padding:0; }
   </div>
 
 
-
-
-
-{{!-- AXIOS --}}
-{{!-- <script>
-
-axios.post(`${window.heroku.url}/user/places/:id`, { place, RADIUS })
-                .then(response => {
-                    document.getElementById('places-name').innerHTML = response.data.name;
-                    console.log(response.data)
-                })
-                .catch(err => console.log(err))
-
-
-</script> --}}
-
-
 {{!-- MAP3D --}}
 
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFrZXJkZXYiLCJhIjoiY2p0M2E3czQ1MW8zNzQ0cGF3aWhqbmM0NSJ9.LsxCUIsThXEOpzlW233seg';
+
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/light-v9',
-center: [-87.62712, 41.89033],
+center: [{{{JSONvenue}}}.lng, {{{JSONvenue}}}.lat],
 zoom: 15.5,
 pitch: 45
 });
@@ -427,16 +417,6 @@ map.addLayer({
                     <form class="form" action="/auth/login" method="POST" id="form-container">
                         <p class="description text-center">Or Be Classical</p>
                         <div class="card-body">
-
-                            {{!-- CAMPO USUARIO --}}
-                            {{!-- <div class="form-group bmd-form-group">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="material-icons">face</i></div>
-                                  </div>
-                                  <input type="text" class="form-control" placeholder="First Name...">
-                                </div>
-                            </div> --}}
 
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">

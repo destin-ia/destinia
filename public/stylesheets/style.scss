@@ -51,12 +51,6 @@ input[type="range"] {
 
 /*---------------------------------------------------------------------*/
 
-.venues {
-    background: #343a40;
-    color: #6c757d;
-    padding: 20px;
-}
-
 .my-border-radius {
     border-radius: 15px;
 }
@@ -98,33 +92,10 @@ input[type="range"] {
     background-size: cover;
 }
 
-
-/*---------------------------------------------------------------------*/
-
-
-/* NAVBAR */
-
-
-/*---------------------------------------------------------------------*/
-
-.navbar-brand {
-    font-size: 2rem;
-    font-weight: 600;
-}
-
 .right {
     display: flex;
     flex-direction: row-reverse;
 }
-
-
-/*---------------------------------------------------------------------*/
-
-
-/* HEADER */
-
-
-/*---------------------------------------------------------------------*/
 
 header video {
     position: absolute;
@@ -141,35 +112,6 @@ header video {
     transform: translateX(-50%) translateY(-50%);
 }
 
-header .container {
-    position: relative;
-    z-index: 2;
-}
-
-header .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 1;
-}
-
-header .container {
-    font-size: 0.9rem;
-}
-
-
-/*---------------------------------------------------------------------*/
-
-
-/* MAP */
-
-
-/*---------------------------------------------------------------------*/
-
 #mapid {
     position: absolute;
     top: 0;
@@ -179,29 +121,15 @@ header .container {
 
 .mapping {
     position: absolute;
-    top: 10%;
+    top: 74px;
     left: 0.5%;
-    bottom: 1%;
+    bottom: 0;
     width: 100%;
-}
-
-// MAP
-.leaflet-touch .leaflet-control-geocoder {
-    min-width: 280px;
 }
 
 .my-form {
     z-index: 100
 }
-
-
-/*---------------------------------------------------------------------*/
-
-
-/* VIDEO */
-
-
-/*---------------------------------------------------------------------*/
 
 #video_background {
     position: absolute;
@@ -240,24 +168,6 @@ header .container {
     min-height: 25rem;
     width: 100%;
     overflow: hidden;
-}
-
-.iconindex {
-    width: 150px;
-}
-
-// DASHBOARD
-.venue-card {
-    width: 90%;
-    height: 100px;
-    padding: 5px 0px 0px 5px;
-    margin-left: 10px;
-    background-color: #6c757d;
-}
-
-#venues {
-    height: 250px;
-    overflow: auto;
 }
 
 #portfolio {
@@ -305,6 +215,263 @@ header .container {
 
 /*---------------------------------------------------------------------*/
 
+.nav-bar-header {
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 98%;
+}
+
+.right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#video_background {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    overflow: hidden;
+}
+
+#video_pattern {
+    background: #fff;
+    position: fixed;
+    opacity: 0.8;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#mapid {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 99%;
+    width: 100%;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#map {
+    display: inline-block;
+    width: 100%;
+    height: 400px;
+    padding: 15px;
+}
+
+.right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#video_background {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    overflow: hidden;
+}
+
+#video_pattern {
+    background: #fff;
+    position: fixed;
+    opacity: 0.8;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.carousel-item {
+    max-width: 800px;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 400px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+// PROFILE
+#bio {
+    width: 700px;
+    height: 100px;
+}
+
+// MAP
+.leaflet-touch .leaflet-control-geocoder {
+    min-width: 280px;
+}
+
+// INDEX
+.index {
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 2;
+}
+
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.iconindex {
+    width: 150px;
+}
+
+// DASHBOARD
+.control {
+    background-color: #182A4B;
+    z-index: 100;
+    color: #f1f1f1;
+    font-size: 0.9rem;
+}
+
+.custom-control-label {
+    margin-top: -5px;
+    margin-bottom: -15px;
+    color: #dee2e6 !important;
+}
+
+.custom-control-label hr {
+    color: #dee2e6 !important;
+}
+
+.venue-card {
+    width: 90%;
+    height: 100px;
+    padding: 5px 0px 0px 5px;
+    margin-left: 10px;
+    background-color: #6c757d;
+}
+
+.venues {
+    padding-right: 5px;
+    padding-left: 30px;
+    padding-top: 15px;
+}
+
+#parentvenue {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#venues {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    padding-right: 20px;
+    /* Increase/decrease this value for cross-browser compatibility */
+    box-sizing: content-box;
+    /* So the width will be 100% + 17px */
+}
+
+.my-hr {
+    border: 0.3px solid #00E4DD;
+    margin-top: -15px;
+    margin-bottom: -5px;
+    padding: 0.2px;
+}
+
+.custom-card {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    z-index: 200;
+    font-size: 0.6rem;
+}
+
+.custom-card-button {
+    font-size: 0.8rem;
+}
+
+.dropdown-menu-custom {
+    left: -100px;
+}
+
+.my-circle {
+    border: 1px solid #f1f1f1;
+}
+
+.my-align {
+    align-items: center;
+}
+
+@media (pointer: coarse) and (hover: none) {
+    header {
+        background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+    }
+    header video {
+        display: none;
+    }
+}
+
+$color_white: #fff;
+$color_prime: #5ad67d;
+$color_grey: #e2e2e2;
+$color_grey_dark: #a2a2a2;
 .blog-card {
     display: flex;
     flex-direction: column;
@@ -492,23 +659,5 @@ header .container {
                 padding-left: 25px;
             }
         }
-    }
-}
-
-
-/*---------------------------------------------------------------------*/
-
-
-/* MEDIAS */
-
-
-/*---------------------------------------------------------------------*/
-
-@media (pointer: coarse) and (hover: none) {
-    header {
-        background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
-    }
-    header video {
-        display: none;
     }
 }
