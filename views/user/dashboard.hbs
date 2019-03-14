@@ -24,13 +24,31 @@
                 <option value="100000">
             </datalist>
             <p>Venues</p>
+            <form class="was-validated">
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV1" value="4deefb944765f83613cdba6e">
+                    <label class="custom-control-label" for="customCV1">Lugares Históricos</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV2" value="50aaa49e4b90af0d42d5de11">
+                    <label class="custom-control-label" for="customCV2">Castillos</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV3" value="52e81612bcbc57f1066b7a21">
+                    <label class="custom-control-label" for="customCV3">Parques Nacionales</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV4" value="52e81612bcbc57f1066b79ed">
+                    <label class="custom-control-label" for="customCV4">Esculturas al Aire Libre</label>
+                </div>
+            </form>
 
         </div>
     </div>
 
 <script>
     let lat = 40.432585, lng = -3.702897
-    let circle, RADIUS, marker, place, geocoder, map
+    let circle, RADIUS, marker, place, geocoder, map, markerGroup, filter = '', inputs
     map = L.map('mapid').setView([lat, lng], 11);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -49,18 +67,29 @@
 
     geocoder = L.Control.geocoder({ defaultMarkGeocode: true })
         .on('markgeocode', function(e) {
+            if (markerGroup != undefined) map.removeLayer(markerGroup);
             lat = e.geocode.center.lat
             lng = e.geocode.center.lng
-            place = e.geocode.properties.address.county
+            place = e.geocode.properties.address.city
             myFunction()
-            axios.post("http://localhost:3000/user/dashboard", { place, RADIUS })
+            inputs = ''
+            filter = ''
+            inputs = document.getElementsByClassName('custom-control-input')
+            console.log(inputs)
+            for (let i=0; i < inputs.length; i++) {
+                if (inputs[i].checked) {filter += `${inputs[i].value},`}
+            }
+            console.log(filter)
+            axios.post("http://localhost:3000/user/dashboard", { place, RADIUS, filter })
+            //axios.post(window.heroku, { place, RADIUS })
                 .then(response => {
+                    console.log(response.data)
+                    markerGroup = L.markerClusterGroup().addTo(map);
                     response.data.forEach(e => {
-                        console.log(e)
-                        L.marker([e.location.lat, e.location.lng], {icon: myIcon}).addTo(map)
+                        L.marker([e.location.lat, e.location.lng], {icon: myIcon}).addTo(markerGroup)
                             .bindPopup(e.name)
                     })
-                    console.log(response)})
+                })
         })
         .addTo(map);
 
