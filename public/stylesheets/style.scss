@@ -1,5 +1,6 @@
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    //font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -83,10 +84,6 @@ input[type="range"] {
     -webkit-box-shadow: 2px 5px 16px 0px #666, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     box-shadow: 2px 5px 16px 0px #666, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     z-index: 10;
-}
-
-body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -232,7 +229,7 @@ header .overlay {
 }
 
 #venues {
-    height: 400px;
+    height: 200px;
     overflow: auto;
 }
 

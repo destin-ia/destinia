@@ -13,7 +13,7 @@ document.getElementById('buttonWhere').onclick = () => {
     let geocode = document.getElementById("geocode").value
     console.log(geocode)
 
-    axios.post("http://localhost:3000/user/dashboard/geocode", { geocode })
+    axios.post(`${window.heroku.url}/user/dashboard/geocode`, { geocode })
         .then(response => {
 
             map.addLayer({

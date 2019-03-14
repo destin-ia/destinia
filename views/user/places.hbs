@@ -72,7 +72,7 @@ body { margin:0; padding:0; }
 {{!-- AXIOS --}}
 <script>
 
-axios.post("http://localhost:3000/user/places/:id", { place, RADIUS })
+axios.post(`${window.heroku.url}/user/places/:id`, { place, RADIUS })
                 .then(response => {
                     document.getElementById('places-name').innerHTML = response.data.name;
                     console.log(response.data)
