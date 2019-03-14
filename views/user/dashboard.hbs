@@ -7,7 +7,7 @@
         </div>
         <div class="col-4 venues my-shadow my-border-radius">
             <p>Selecciona destino con la lupa</p>
-            <label for="days">Días <input id="days" type="text" name="days"></label>
+            {{!-- <label for="days">Días <input id="days" type="text" name="days"></label> --}}
             <hr>
             <label for="radio">Radio: Mín.10 - Máx.100 [km] - <span id="actualMark">50</span>km</label>
             <input id="radio" list="tickmarks" type="range" name="radio" oninput="myFunction()" min="10000" max="100000">
@@ -23,7 +23,9 @@
                 <option value="90000">
                 <option value="100000">
             </datalist>
-            <p>Venues</p>
+
+            <p>Lugares de Interés</p>
+            <button class="btn btn-primary">Guardar Ruta</button>
             <div id="venues">
                 {{!-- <div class="venue-card">
                     <form action="">                
@@ -39,11 +41,9 @@
                                 <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
                             </div>
                             <div class="description">
-                                <p>Opening a door to the future</p>
-                                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <p class="read-more">
-                                    <a href="#">Información</a>
-                                </p>
+                                <h5>Bienvenido a DestinIA</h5>
+                                <p> Es esta sección podrá ver las ubicaciones y guardas los lugares que más te interesen</p>
+                             
                             </div>
                         </div>                    
                 </div>
@@ -94,10 +94,10 @@
                                 <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
                             </div>
                             <div class="description">
-                                <p>${e.name}</p>
-                                <p>${e.name}</p>
+                                <h5>${e.name}</h5>
                                 <p class="read-more">
-                                    <a href="/user/places/${e.id}">Información</a>
+                                    
+                                <a href="/user/places/${e.id}">+Información</a>
                                 </p>
                             </div>
                         </div>`;
@@ -121,6 +121,16 @@
         }).addTo(map);
         document.getElementById('actualMark').innerHTML = parseInt(RADIUS/1000);
     }
+</script>
+
+<script>
+    // Initialize a new instance of Particles to disintegrate/integrate the button
+    var particles = new Particles('.button2');
+
+    // Disintegrate the button into particles
+    particles.disintegrate();
+
+    // particles.integrate(); // would do the opposite
 </script>
 
 {{!-- MODALBOX --}}
@@ -402,16 +412,6 @@
                     <form class="form" action="/auth/login" method="POST" id="form-container">
                         <p class="description text-center">Or Be Classical</p>
                         <div class="card-body">
-
-                            {{!-- CAMPO USUARIO --}}
-                            {{!-- <div class="form-group bmd-form-group">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="material-icons">face</i></div>
-                                  </div>
-                                  <input type="text" class="form-control" placeholder="First Name...">
-                                </div>
-                            </div> --}}
 
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">

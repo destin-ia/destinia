@@ -351,7 +351,7 @@ $color_grey_dark: #a2a2a2;
         }
     }
     .description {
-        padding: 1rem;
+        padding: 0.5rem;
         background: $color_white;
         position: relative;
         z-index: 1;
@@ -362,7 +362,7 @@ $color_grey_dark: #a2a2a2;
         h1 {
             line-height: 1;
             margin: 0;
-            font-size: 1.7rem;
+            font-size: 1.5rem;
         }
         h2 {
             font-size: 1rem;
@@ -370,6 +370,9 @@ $color_grey_dark: #a2a2a2;
             text-transform: uppercase;
             color: $color_grey_dark;
             margin-top: 5px;
+        }
+        h5 {
+            font-size: 0.9rem;
         }
         .read-more {
             text-align: right;
@@ -393,6 +396,7 @@ $color_grey_dark: #a2a2a2;
         }
     }
     p {
+        font-size: 0.8rem;
         position: relative;
         margin: 1rem 0 0;
         &:first-of-type {
