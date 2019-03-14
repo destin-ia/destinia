@@ -1,5 +1,4 @@
 /*jshint esversion: 6 */
-
 require('dotenv').config();
 
 const bodyParser = require('body-parser');

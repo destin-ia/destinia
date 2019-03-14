@@ -1,6 +1,5 @@
 /*jshint esversion: 6 */
 require('dotenv').config();
-
 const express = require("express");
 const passport = require('passport');
 const Router = express.Router();
@@ -25,12 +24,9 @@ Router.get("/dashboard", (req, res, next) => res.render("user/dashboard", { erro
 Router.get("/places", (req, res, next) => res.render("user/places", { errorMessage: `` }));
 
 Router.post("/dashboard", (req, res, next) => {
-    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&near=${req.body.place}&radius=${req.body.RADIUS}`) //&v=20120609
-        // axios.get(`https://api.foursquare.com/v2/venues/categories?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`)
-        // axios.get(`https://api.foursquare.com/v2/venues/suggestcompletion?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20180323&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&query=historic`)
+    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
         .then(response => {
-            console.log(`Response from the API is: `, response.data.data);
-            // console.log(`Response from the API is: `, response.data.response.venues);
+            console.log(`Response from the API is: `, response.data.response.venues);
             res.json(response.data.response.venues);
         })
         .catch(err => next(err));
@@ -86,6 +82,5 @@ Router.post("/profile/bio/:id", (req, res, next) => {
             next();
         });
 });
-
 
 module.exports = Router;
