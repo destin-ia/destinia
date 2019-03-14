@@ -30,12 +30,12 @@ Router.get("/dashboard", (req, res, next) => {
 
 // Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
 Router.get("/places/:id", (req, res, next) => {
-    console.log(typeof req.params.id)
+    // console.log(typeof req.params.id)
     let myId = req.params.id
     axios.get(`https://api.foursquare.com/v2/venues/${myId}?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`) //&v=20120609
         .then(response => {
-            console.log(`Response from the API is: `, response.data.response.venues);
-            res.render("user/places", { venue: response.data.response.venue });
+            console.log(`Response from the API is: `, response.data.response.venue);
+            res.render("user/places", { venue: response.data.response.venue, JSONvenue: JSON.stringify(response.data.response.venue.location) });
         })
         .catch(err => next(err));
     // res.render("user/places/:id", { errorMessage: `` })

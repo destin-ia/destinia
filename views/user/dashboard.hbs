@@ -1,15 +1,8 @@
 {{#if isUserLoggedIn }}
 
     <div class="row mapping">
-        <div class="col-8">
-            {{!-- <div id="map" class="my-shadow my-border-radius"></div> --}}
-        <div id="mapid" class="my-shadow my-border-radius"></div>
-        </div>
-        <div class="col-4 venues my-shadow my-border-radius">
-            <p>Selecciona destino con la lupa</p>
-            {{!-- <label for="days">Días <input id="days" type="text" name="days"></label> --}}
-            <hr>
-            <label for="radio">Radio: Mín.10 - Máx.100 [km] - <span id="actualMark">50</span>km</label>
+        <div class="col-2 p-4 control">
+            <label for="radio">Filtro distancia: <span id="actualMark">50</span>km</label>
             <input id="radio" list="tickmarks" type="range" name="radio" oninput="myFunction()" min="10000" max="100000">
             <datalist id="tickmarks">
                 <option value="10000">
@@ -23,38 +16,59 @@
                 <option value="90000">
                 <option value="100000">
             </datalist>
-            {{!-- <p>Venues</p> --}}
+            
             <form class="was-validated">
+                <br>
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCV1" value="4deefb944765f83613cdba6e">
                     <label class="custom-control-label" for="customCV1">Lugares Históricos</label>
                 </div>
+                <hr class="my-hr"/>​
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCV2" value="50aaa49e4b90af0d42d5de11">
                     <label class="custom-control-label" for="customCV2">Castillos</label>
                 </div>
+                <hr class="my-hr"/>​
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCV3" value="52e81612bcbc57f1066b7a21">
                     <label class="custom-control-label" for="customCV3">Parques Nacionales</label>
                 </div>
+                <hr class="my-hr"/>​
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCV4" value="52e81612bcbc57f1066b79ed">
                     <label class="custom-control-label" for="customCV4">Esculturas al Aire Libre</label>
                 </div>
+                <hr class="my-hr"/>​
+                 {{!-- LISTADO TEST --}}
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV4" value="52e81612bcbc57f1066b79ed">
+                    <label class="custom-control-label" for="customCV4">Cruising</label>
+                </div>
+                <hr class="my-hr"/>​
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV4" value="52e81612bcbc57f1066b79ed">
+                    <label class="custom-control-label" for="customCV4">El rincón de Popino</label>
+                </div>
+                <hr class="my-hr"/>​
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCV4" value="52e81612bcbc57f1066b79ed">
+                    <label class="custom-control-label" for="customCV4">Se vende Opel Kadet</label>
+                </div>
+                
             </form>
+        
+        </div>
 
-            <p>Lugares de Interés</p>
+        <div class="col-7">
+            
+        <div id="mapid" class="my-shadow my-border-radius"></div>
+        </div>
+
+        <div class="col-3 venues" id="parentvenue" >
+        
+             <h6>Listado de Resultados</h6>
             
             <div id="venues">
-                {{!-- <div class="venue-card">
-                    <form action="">                
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label"></label>            
-                        <img src="" >
-
-                        <div class="">
-                        </div>
-                    </form> --}}
                          <div class="blog-card">
                             <div class="meta">
                                 <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
@@ -76,10 +90,10 @@
     // APIS ---------------------------
     let lat = 40.432585, lng = -3.702897
     let circle, RADIUS, marker, place, geocoder, map, markerGroup, filter = '', inputs
-    map = L.map('mapid').setView([lat, lng], 11);
+    map = L.map('mapid').setView([lat, lng], 2);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
+        maxZoom: 38,
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1IjoibjFiM2x1bmcwIiwiYSI6ImNqdDNhN3U2bjEzNzc0NHAxdzI3c252ZjUifQ.gx4WKfJ4pQqU7bLPizhtZA'
     }).addTo(map);
@@ -151,6 +165,16 @@
     }
 </script>
 
+{{!-- RUTAS--}}
+<section style="position:absolute; bottom: 20px; left: 10px; z-index: 200;">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Ruta Mediterránea</h5>
+            <p class="card-text">With supporting</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</section>
 
 
 {{!-- MODALBOX --}}
