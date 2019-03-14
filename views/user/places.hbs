@@ -10,7 +10,7 @@ body { margin:0; padding:0; }
 <div class="container top-margin">
   <div class="row">
   <div class="col-6">
-    <h1 id="places-name">El Faro Farolé</h1>
+    <h1>{{venue.name}}</h1>
     <br>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
@@ -70,9 +70,9 @@ body { margin:0; padding:0; }
 
 
 {{!-- AXIOS --}}
-<script>
+{{!-- <script>
 
-axios.post("http://localhost:3000/user/places/:id", { place, RADIUS })
+axios.get("http://localhost:3000/user/places/:id", { place, RADIUS })
                 .then(response => {
                     document.getElementById('places-name').innerHTML = response.data.name;
                     console.log(response.data)
@@ -80,7 +80,7 @@ axios.post("http://localhost:3000/user/places/:id", { place, RADIUS })
                 .catch(err => console.log(err))
 
 
-</script>
+</script> --}}
 
 
 {{!-- MAP3D --}}

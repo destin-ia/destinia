@@ -30,20 +30,21 @@ Router.get("/dashboard", (req, res, next) => {
 
 // Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
 Router.get("/places/:id", (req, res, next) => {
-    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=4U5KRXUWX4VWS4J0HHKKQEDO0CFOYZ5ML0B0DTUMAW5SR5ZP&client_secret=0XPH0LSUZMPIIV1QXAATFSONAUTBAK1AFNNPCL5GVRP32KRZ&v=20190202&near=Sevilla&radius=55000`)
+    console.log(typeof req.params.id)
+    let myId = req.params.id
+    axios.get(`https://api.foursquare.com/v2/venues/${myId}?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`) //&v=20120609
         .then(response => {
             console.log(`Response from the API is: `, response.data.response.venues);
-
-            res.json(response.data.response.venues)
+            res.render("user/places", { venue: response.data.response.venue });
         })
         .catch(err => next(err));
-    res.render("user/places", { errorMessage: `` })
+    // res.render("user/places/:id", { errorMessage: `` })
 });
 
 Router.post("/dashboard", (req, res, next) => {
     axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
         .then(response => {
-            console.log(`Response from the API is: `, response.data.response.venues);
+            // console.log(`Response from the API is: `, response.data.response.venues);
             res.json(response.data.response.venues);
         })
         .catch(err => next(err));

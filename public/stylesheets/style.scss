@@ -173,8 +173,7 @@ header .container {
 
 // MAP
 .leaflet-touch .leaflet-control-geocoder {
-    width: 700px;
-    min-height: 40px;
+    min-width: 280px;
 }
 
 // INDEX
@@ -232,7 +231,7 @@ header .overlay {
 }
 
 #venues {
-    height: 400px;
+    height: 350px;
     overflow: auto;
 }
 
