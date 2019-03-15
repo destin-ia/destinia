@@ -66,7 +66,7 @@ Router.get("/places/:id", (req, res, next) => {
 // });
 
 Router.post("/dashboard", (req, res, next) => {
-    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
+    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=1&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
         .then(response => {
             // console.log(`Response from the API is: `, response.data.response.venues);
             res.json(response.data.response.venues);
