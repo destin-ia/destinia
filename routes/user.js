@@ -106,7 +106,7 @@ Router.get("/delete/:id", (req, res, next) => {
         .then(user => {
             console.log("He borrado el usuario " + user);
             req.session.destroy();
-            res.redirect("/");
+            res.redirect("/not-found");
         })
         .catch(err => {
             console.log('Error deleting an user', err);
