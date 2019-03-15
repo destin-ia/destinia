@@ -28,7 +28,7 @@ Router.get("/dashboard", (req, res, next) => {
         .catch(err => console.log(err))
 });
 
-Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
+//Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
 Router.get("/places/:id", (req, res, next) => {
     console.log(typeof req.params.id)
     let myId = req.params.id;
@@ -74,15 +74,15 @@ Router.post("/dashboard", (req, res, next) => {
         .catch(err => next(err));
 });
 
-Router.post("/dashboard-get-places", (req, res, next) => {
-    axios.get(`https://api.foursquare.com/v2/venues/${req.body.e.id}/photos?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`)
-        //axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
-        .then(response => {
-            //console.log(`Response from the API is: `, response);
-            res.json(response.data.response.photos.items);
-        })
-        .catch(err => next(err));
-});
+// Router.post("/dashboard-get-places", (req, res, next) => {
+//     axios.get(`https://api.foursquare.com/v2/venues/${req.body.e.id}/photos?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`)
+//         //axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
+//         .then(response => {
+//             //console.log(`Response from the API is: `, response);
+//             res.json(response.data.response.photos.items);
+//         })
+//         .catch(err => next(err));
+// });
 
 
 Router.get("/profile/:id", (req, res, next) => {
