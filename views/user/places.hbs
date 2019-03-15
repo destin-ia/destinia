@@ -9,9 +9,15 @@ body { margin:0; padding:0; }
 
 <div class="container top-margin">
   <div class="row">
-  <div class="col-6">
+  <div class="col-12">
     <h1>{{venue.name}}</h1>
     <br>
+     <div id='map'></div>
+
+  </div>
+
+  <div class="col-6">    
+    {{!-- <img src="{{photo.0.prefix}}original{{photo.0.suffix}}" style="max-width:400px; object-fit: cover;"> --}}
     <h5>Dirección: {{venue.location.address}}</h5>
     <p>{{venue.contact.description}}Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
     <h2>Contacto</h2>
@@ -20,7 +26,6 @@ body { margin:0; padding:0; }
         <li>Twitter: @{{venue.contact.twitter}}</li>
         <li>Instagram: {{venue.contact.instagram}}</li>
         <li>Facebook: {{venue.contact.facebookName}}</li>
-      
     </ul>
     
     <h2>Otros</h2>
@@ -33,10 +38,6 @@ body { margin:0; padding:0; }
     </ul>
   </div>
 
-  <div class="col-6">    
-    <img src="{{photo.0.prefix}}original{{photo.0.suffix}}" style="max-width:400px; object-fit: cover;">
-  </div>
-
 <div class="row p3" style="background-color: silver;"></div>
   <div class="col-4">
     <h2>Información</h2>
@@ -47,8 +48,8 @@ body { margin:0; padding:0; }
     </ul>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ducimus blanditiis et dolorum totam perspiciatis praesentium sed, temporibus aliquid harum error voluptatum voluptate quisquam ipsam debitis molestiae voluptas, libero aspernatur?</p>
   </div>
-  <div class="col-8">
-    <div id='map'></div>
+  <div class="col-6">
+   
   </div>
 
 {{!-- MAP3D --}}
