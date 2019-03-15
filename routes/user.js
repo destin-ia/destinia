@@ -28,27 +28,63 @@ Router.get("/dashboard", (req, res, next) => {
         .catch(err => console.log(err))
 });
 
-// Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
+Router.get("/profile", (req, res, next) => res.render("user/profile", { errorMessage: `` }));
 Router.get("/places/:id", (req, res, next) => {
-    // console.log(typeof req.params.id)
+    console.log(typeof req.params.id)
     let myId = req.params.id;
-    axios.get(`https://api.foursquare.com/v2/venues/${myId}?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`) //&v=20120609
+    axios.get(`https://api.foursquare.com/v2/venues/${myId}?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20120609`) //&v=20120609
         .then(response => {
-            console.log(`Response from the API is: `, response.data);
+            //console.log(`Response from the API is: `, response.data);
             res.render("user/places", { venue: response.data.response.venue, JSONvenue: JSON.stringify(response.data.response.venue.location) });
         })
-        .catch(err => next(err));
+        .catch(err => {
+            console.log(err)
+            next(err)
+        });
     // res.render("user/places/:id", { errorMessage: `` })
 });
 
+// Router.get("/places/:id", (req, res, next) => {
+//     // console.log(typeof req.params.id)
+//     let myId = req.params.id
+//     axios.get(`https://api.foursquare.com/v2/venues/${myId}?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`) //&v=20120609
+//         .then(response => {
+//             console.log(`Response from the API is: `, response.data.response.venue);
+//             res.render("user/places", { venue: response.data.response.venue, JSONvenue: JSON.stringify(response.data.response.venue.location) });
+//         })
+//         .catch(err => next(err));
+//     // res.render("user/places/:id", { errorMessage: `` })
+
+
+//     axios.get(`https://api.foursquare.com/v2/venues/${myId}/photos?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`) //&v=20120609
+//         .then(response => {
+//             console.log(`Response from the API is: `, response.data.response.photos.items);
+//             res.render("user/places", { photo: response.data.response.photos.items, JSONphoto: JSON.stringify(response.data.response.photos.items) });
+//         })
+//         .catch(err => next(err));
+
+// });
+
 Router.post("/dashboard", (req, res, next) => {
-    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
+    axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
         .then(response => {
             // console.log(`Response from the API is: `, response.data.response.venues);
             res.json(response.data.response.venues);
         })
         .catch(err => next(err));
 });
+
+Router.post("/dashboard-get-places", (req, res, next) => {
+    axios.get(`https://api.foursquare.com/v2/venues/${req.body.e.id}/photos?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202`)
+        //axios.get(`https://api.foursquare.com/v2/venues/search?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&v=20190202&limit=50&near=${req.body.place}&radius=${req.body.RADIUS}&categoryId=${req.body.filter}`) //&v=20120609
+        .then(response => {
+            //console.log(`Response from the API is: `, response);
+            res.json(response.data.response.photos.items);
+        })
+        .catch(err => next(err));
+});
+
+
 Router.get("/profile/:id", (req, res, next) => {
     console.log(req.params.id);
     User.findById(req.params.id)
@@ -80,9 +116,9 @@ Router.get("/delete/:id", (req, res, next) => {
 
 
 Router.post("/profile/:id", (req, res, next) => {
-    const { name, username, password, photo } = req.body;
+    const { name, username, password } = req.body;
     console.log(req.body);
-    User.update({ _id: req.params.id }, { $set: { name, username, password, photo } })
+    User.update({ _id: req.params.id }, { $set: { name, username, password } })
         .then(user => res.redirect(`${req.params.id}`))
         .catch(err => {
             console.log('Error while updating an user', err);
