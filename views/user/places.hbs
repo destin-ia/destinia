@@ -13,38 +13,29 @@ body { margin:0; padding:0; }
     <h1>{{venue.name}}</h1>
     <br>
     <h5>Dirección: {{venue.location.address}}</h5>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
+    <p>{{venue.contact.description}}Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam iste eligendi, eos ullam illo error sapiente aut quod eveniet inventore, dolor, molestiae saepe totam molestias. Numquam quaerat sunt eveniet modi.</p>
+    <h2>Contacto</h2>
+    <ul>      
+        <li>Teléfono: {{venue.contact.formattedPhone}}</li>
+        <li>Twitter: @{{venue.contact.twitter}}</li>
+        <li>Instagram: {{venue.contact.instagram}}</li>
+        <li>Facebook: {{venue.contact.facebookName}}</li>
+      
+    </ul>
+    
+    <h2>Otros</h2>
+    <ul>      
+        <li>Web: {{venue.url}}</li>
+        <li>Rating: {{venue.rating}}</li>
+        <li>Instagram: {{venue.contact.instagram}}</li>
+        <li>Facebook: {{venue.contact.facebookName}}</li>
+      
+    </ul>
   </div>
 
-  <div class="col-6">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/images/slide-demo.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/images/slide-demo.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/images/slide-demo.jpg" class="d-block w-100" alt="...">
-    </div>
+  <div class="col-6">    
+    <img src="{{photo.0.prefix}}original{{photo.0.suffix}}" style="max-width:400px; object-fit: cover;">
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-</div>
 
 <div class="row p3" style="background-color: silver;"></div>
   <div class="col-4">
@@ -59,18 +50,6 @@ body { margin:0; padding:0; }
   <div class="col-8">
     <div id='map'></div>
   </div>
-<br>
-<hr>
-<br>
-  <div class="col-8">
-    <div id='mappop'></div>
-  </div>
-   <div class="col-4">
-    <h2>Drive</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ducimus blanditiis et dolorum totam perspiciatis praesentium sed, temporibus aliquid harum error voluptatum voluptate quisquam ipsam debitis molestiae voluptas, libero aspernatur?</p>
-  </div>
-  </div>
-
 
 {{!-- MAP3D --}}
 
@@ -78,19 +57,19 @@ body { margin:0; padding:0; }
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFrZXJkZXYiLCJhIjoiY2p0M2E3czQ1MW8zNzQ0cGF3aWhqbmM0NSJ9.LsxCUIsThXEOpzlW233seg';
 
 var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/light-v9',
-center: [{{{JSONvenue}}}.lng, {{{JSONvenue}}}.lat],
-zoom: 15.5,
-pitch: 45
-});
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [{{{JSONvenue}}}.lng, {{{JSONvenue}}}.lat],
+    zoom: 15.5,
+    pitch: 45
+  });
  
 function rotateCamera(timestamp) {
-// clamp the rotation between 0 -360 degrees
-// Divide timestamp by 100 to slow rotation to ~10 degrees / sec
-map.rotateTo((timestamp / 100) % 360, {duration: 0});
-// Request the next frame of the animation.
-requestAnimationFrame(rotateCamera);
+  // clamp the rotation between 0 -360 degrees
+  // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+  map.rotateTo((timestamp / 100) % 360, {duration: 0});
+  // Request the next frame of the animation.
+  requestAnimationFrame(rotateCamera);
 }
  
  
@@ -108,90 +87,32 @@ map.removeLayer(layers[i].id);
 }
  
 map.addLayer({
-'id': '3d-buildings',
-'source': 'composite',
-'source-layer': 'building',
-'filter': ['==', 'extrude', 'true'],
-'type': 'fill-extrusion',
-'minzoom': 15,
-'paint': {
-'fill-extrusion-color': '#aaa',
+  'id': '3d-buildings',
+  'source': 'composite',
+  'source-layer': 'building',
+  'filter': ['==', 'extrude', 'true'],
+  'type': 'fill-extrusion',
+  'minzoom': 15,
+  'paint': {
+  'fill-extrusion-color': '#aaa',
  
-// use an 'interpolate' expression to add a smooth transition effect to the
-// buildings as the user zooms in
-'fill-extrusion-height': [
-"interpolate", ["linear"], ["zoom"],
-15, 0,
-15.05, ["get", "height"]
-],
-'fill-extrusion-base': [
-"interpolate", ["linear"], ["zoom"],
-15, 0,
-15.05, ["get", "min_height"]
-],
-'fill-extrusion-opacity': .6
+  // use an 'interpolate' expression to add a smooth transition effect to the
+  // buildings as the user zooms in
+  'fill-extrusion-height': [
+  "interpolate", ["linear"], ["zoom"],
+  15, 0,
+  15.05, ["get", "height"]
+  ],
+  'fill-extrusion-base': [
+  "interpolate", ["linear"], ["zoom"],
+  15, 0,
+  15.05, ["get", "min_height"]
+  ],
+  'fill-extrusion-opacity': .6
 }
 });
 });
 </script>
-
-{{!-- MAP POPULATION --}}
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFrZXJkZXYiLCJhIjoiY2p0M2E3czQ1MW8zNzQ0cGF3aWhqbmM0NSJ9.LsxCUIsThXEOpzlW233seg';
-var map = new mapboxgl.Map({
-container: 'mappop', // container id
-style: 'mapbox://styles/mapbox/streets-v10', // stylesheet location
-center: [30.0222, -1.9596], // starting position [lng, lat]
-zoom: 3 // starting zoom
-});
- 
-map.on('load', function () {
- 
-map.addLayer({
-'id': 'rwanda-provinces',
-'type': 'fill',
-'source': {
-'type': 'geojson',
-'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/rwanda-provinces.geojson'
-},
-'layout': {},
-'paint': {
-'fill-color':
-["let", "density", ["/", ["get", "population"], ["get", "sq-km"]],
-[
-"interpolate",
-["linear"],
-["zoom"],
-8,
-[
-"interpolate",
-["linear"],
-["var", "density"],
-274,
-["to-color", "#edf8e9"],
-1551,
-["to-color", "#006d2c"]
-],
-10,
-[
-"interpolate",
-["linear"],
-["var", "density"],
-274,
-["to-color", "#eff3ff"],
-1551,
-["to-color", "#08519c"]
-]
-]
-],
-'fill-opacity': .7
-}
-});
-});
-</script>
-
- 
-
 
 </div>
 </div>

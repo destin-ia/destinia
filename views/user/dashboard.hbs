@@ -65,10 +65,13 @@
         </div>
 
         <div class="col-3 venues" id="parentvenue" >
-        
-             <h6>Listado de Resultados</h6>
-            
-            <div id="venues">
+          <div style="height: 90px; width:100%; background-color: #10134D;">
+          <img src="/images/core.gif" style="max-height: 90px;margin-top:0px;margin-rigth: 180px;">
+          <h5 style="color:azure; margin-top: -50px;margin-left: 100px;">Hola, soy Destin</h5>
+          <p style="color:silver;margin-top: -50px;margin-left: 100px;">Empieza con una búsqueda</p>
+          </div>
+
+            <div id="venues" >
                          <div class="blog-card">
                             <div class="meta">
                                 <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
@@ -130,7 +133,8 @@
                     response.data.forEach(e => {
                         L.marker([e.location.lat, e.location.lng], {icon: myIcon}).addTo(markerGroup)
                             .bindPopup(e.name)
-
+                            //${e.photos.groups.3.1}original${e.photos.groups.3.2}
+                            //https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg
                             html += `<div class="blog-card">
                             <div class="meta">
                                 <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
@@ -168,10 +172,10 @@
 {{!-- RUTAS--}}
 <section style="position:absolute; bottom: 20px; left: 10px; z-index: 200;">
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Ruta Mediterránea</h5>
-            <p class="card-text">With supporting</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card-body" style="background-color:#10203B;">
+            <h5 class="card-title" style="color:silver;">Valencia, España</h5>
+            <p class="card-text" style="color: silver;">Destino recomendado</p>
+            <a href="/user/places/4d6abe158fe6a1433895eba3" class="btn" style="background-color:aqua;color:azure;">Navegar</a>
         </div>
     </div>
 </section>
