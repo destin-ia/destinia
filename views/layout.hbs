@@ -12,8 +12,6 @@
     <!--     BOOTSTRAP     -->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="/javascripts/bootstrap.min.js"></script>
-    {{!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
-    {{!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> --}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 
@@ -21,27 +19,29 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
     <!--     Leaflet to paint the map     -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+
+    <!--     Geocoder for Leaflet to paint the search button     -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-
+    <!--     MarkerCluster to cluster markers on Leaflet     -->
     <link rel="stylesheet" href="/stylesheets/MarkerCluster.css">
     <link rel="stylesheet" href="/stylesheets/MarkerCluster.Default.css">
-
     <script src="/javascripts/leaflet.markercluster-src.js"></script>
+
     <script src="/javascripts/script.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 
 </head>
 <body>
-    <div class="" id="nav-bar-header">
+    <div class="my-align" id="nav-bar-header">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark my-shadow" style="background-color: #1C3259;">
+            <nav class="navbar navbar-expand-lg navbar-dark my-shadow my-align" style="background-color: #1C3259;">
                 <a class="navbar-brand" href="/">
                     <img src="/images/logo.png" width="200" >
                 </a>
@@ -54,28 +54,20 @@
                         {{#if isUserLoggedIn }}
                             <li class="nav-item nav-link">¡Hola {{ currentUserInfo.username }}! </li>
                             <li class="nav-item active"><a class="nav-link" href="/user/dashboard">Dashboard</a></li>
-                            <li class="nav-item nav-link"><img src="{{currentUserInfo.photo}}" class="rounded-circle" style="max-width: 35px;"></li>
-                            <li class="nav-item"><a class="nav-link" href="/user/profile/{{currentUserInfo._id}}">Profile</a></li>
-
-                        
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="nav-item nav-link"><img src="{{currentUserInfo.photo}}" class="rounded-circle my-circle" style="max-width: 35px; margin-top:-7px;"></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ currentUserInfo.username }}
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                        <a class="dropdown-item" href="/user/profile/{{currentUserInfo._id}}">Ver Perfil</a>
-                                        <a class="dropdown-item" href="#">Ver Rutas</a>                                
-                                        <div class="dropdown-divider"></div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdownMenuReference">
+                                    <a class="dropdown-item" href="/user/profile/{{currentUserInfo._id}}">Ver Perfil</a>
+                                    <a class="dropdown-item" href="#">Ver Rutas</a>
+                                    <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="/auth/logout">Salir</a>
                                     </div>
-                                </li>
-
-                            
-                            {{!-- <li class="nav-item active"><a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li> --}}
-                            <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
+                            </li>
                         {{else}}
                             <li class="nav-item"><a class="nav-link" href="/auth/signup">Sign Up</a></li>
-                            {{!-- <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li> --}}
                             <li class="nav-item"><a class="nav-link" href="/auth/login" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         {{/if}}
                     </ul>
@@ -83,13 +75,57 @@
             </nav>
         </header>
     </div>
-    <script>
-        window.heroku = {{{heroku}}}
-        console.log(window.heroku);
-    </script>
 
-  {{{body}}}
+<script>
+    window.heroku = {{{heroku}}}
+    //console.log(window.heroku);
+</script>
 
+    {{{body}}}
+
+
+{{!-- MODALBOX --}}
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="">
+    <div class="modal-dialog modal-login modal-father" role="document">
+        <div class="modal-content text-center  my-modal">
+            <div class="card card-signup card-plain my-in-modal">
+
+                <div class="modal-body">
+                    <form class="form" action="/auth/login" method="POST" id="form-container">
+                        <h4 class="card-title">Log in</h4>
+                        <div class="card-body">
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="material-icons">email</i></div>
+                                    </div>
+                                    <input id="email" type="text" name="email" placeholder="JonSnow@winter.fell" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="material-icons">lock_outline</i></div>
+                                    </div>
+                                    <input id="password" type="password" name="password" placeholder="Password..." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <div class="social-line">
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white"><i class="fa fa-facebook-square"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                            <button class="btn btn-custom" type="submit">Log in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
